@@ -6,6 +6,14 @@
     publishJUnitResults: true
     testResultsFiles: '**/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.11'
+- task: Ant@1
+  inputs:
+    buildFile: 'build.xml'
+    options: 
+    publishJUnitResults: true
+    testResultsFiles: '**/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
 # Build your Java project and run tests with Apache Maven.
 # Add steps that analyze code, save build artifacts, deploy, and more:
 # https://docs.microsoft.com/azure/devops/pipelines/languages/java
@@ -27,3 +35,10 @@ steps:
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     goals: 'package'
+- task: AzureRmWebAppDeployment@4
+  inputs:
+    ConnectionType: 'AzureRM'
+    azureSubscription: 'Free Trial(a88f0f3a-0b3b-4014-b5e0-d2c3f83d2676)'
+    appType: 'webApp'
+    WebAppName: 
+    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
